@@ -1,14 +1,10 @@
 # Bitome
 
-A Chrome Extension cryptocurrency tracker converter  (via coinmarketcap api)
-
-## Getting Started
-
-This is open source project to chrome extension.
+A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api)
 
 ### Dev Prerequisites
+* NPM 8 (8.9.3)
 
-NPM 8 (8.9.3)
 
 ```
 #run install
@@ -39,6 +35,7 @@ npm run dev
 
 * [wcer](https://github.com/YuraDev/vue-chrome-extension-template) - the vue template chrome extension
 * [Vue.js](https://vuejs.org/) - Vuejs
+* [coinmarketcap api](https://coinmarketcap.com/api/)
 
 
-if any issue, leave issue / comment :) 
+if any issue, leave issue / comment :)
