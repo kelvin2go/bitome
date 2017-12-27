@@ -16,6 +16,8 @@
         :name="crypto.name"
         :price_btc="crypto.price_btc"
         :price_usd="crypto.price_usd"
+        :percent_change_1h="crypto.percent_change_1h"
+        :percent_change_24h="crypto.percent_change_24h"
         :detail_show="showlist[index]"
         v-on:show="showCrypto(index)"
       >
