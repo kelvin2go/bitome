@@ -18,7 +18,7 @@ npm run dev
 
 ### pure Installing
 
-1. Download [Bitome](https://github.com/kelvin2go/bitome/blob/master/demo/build.zip)
+1. Download [Bitome](https://github.com/kelvin2go/bitome/raw/master/demo/build.zip)
 2. go to extensions (chrome://extensions)
 3. developer mode (if not ready)
 4. load the upziped build.zip
