@@ -14,6 +14,7 @@
     "element-ui": "^2.0.1",
     "lodash": "^4.17.4",
     "vue": "^2.5.2",
+    "vue-gtm": "^1.0.2",
     "vue-meta": "^1.2.0",
     "vue-pouch": "^0.0.22",
     "vue-router": "^3.0.1",
@@ -69,6 +70,6 @@
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3",
     "webpack-merge": "^4.1.0",
-    "ws": "^3.2.0"
+    "ws": "3.3.2"
   }
 }

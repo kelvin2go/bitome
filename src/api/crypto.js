@@ -1,15 +1,17 @@
 import axios from 'axios'
 import store from '../ext/storage'
+import config from '../utils/config'
+import debug from '../utils/debug'
 
 const API_URL = {
   coinMarket: `https://api.coinmarketcap.com/v1/ticker/?limit=10`
 }
 
 const checkCache = (key) => {
-  console.log('checkCache')
+  debug.log('checkCache')
   return store.get(key)
     ? new Promise((resolve, reject) => {
-      console.log('cached')
+      debug.log('cached')
       resolve(store.get(key))
     })
     : null
@@ -18,17 +20,18 @@ const checkCache = (key) => {
 const cacheAPI = {
   call (path) {
     setTimeout(() => {
+      debug.log('clearCache')
       store.clear()
-    }, 3000)
+    }, config.CACHE_TIME)
     const api = axios.get(path).then(response => {
       store.set(path, response)
-      console.log(response)
+      debug.log(response)
       return new Promise((resolve, reject) => {
         resolve(response)
       })
     })
     const cache = checkCache(path) || api
-    console.log(cache)
+    debug.log(cache)
     return cache
   }
 }
