@@ -7,6 +7,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const {styleLoaders} = require('./tools')
+
+process.env.NODE_ENV = 'production'
+
 module.exports = merge(baseWebpack, {
   devtool: '#cheap-module-eval-source-map',
   module: {
