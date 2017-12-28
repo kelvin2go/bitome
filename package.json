@@ -23,8 +23,8 @@
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "dev": "webpack --config ./core/webpack.dev.js --hide-modules",
-    "build": "webpack --config ./core/webpack.prod.js -p --progress  --hide-modules --colors"
+    "dev": "NODE_ENV=dev webpack --config ./core/webpack.dev.js --hide-modules",
+    "build": "NODE_ENV=production webpack --config ./core/webpack.prod.js -p --progress  --hide-modules --colors"
   },
   "devDependencies": {
     "archiver": "^2.1.0",

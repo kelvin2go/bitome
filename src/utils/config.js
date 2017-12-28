@@ -1,7 +1,6 @@
-const CONFIG = {
-  DEBUG: true,
-  // 5 mins
-  CACHE_TIME: 5 * 60 * 1000
-}
+import devConfig from './devConfig'
+import prodConfig from './prodConfig'
+
+const CONFIG = process.env.node_env === 'production' ? prodConfig : devConfig
 
 export default CONFIG
