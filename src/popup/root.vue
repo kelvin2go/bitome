@@ -53,7 +53,9 @@
         this.error = e
       })
     },
-    mounted () { },
+    mounted () {
+      this.$gtm.trackView('popup', '/popup.html')
+    },
     methods: {
       showCrypto (index) {
         console.log(this.showlist)

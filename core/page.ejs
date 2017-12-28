@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/gtm.js"></script>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=<%= htmlWebpackPlugin.options.GTM_ID %>"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
-    <script type="text/javascript" src="/js/vendor.js"></script>
   </body>
 </html>

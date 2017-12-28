@@ -2,6 +2,10 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const CONFIG = {
+   GTM_ID: 'GTM-5DKL9Q8'
+ }
+
 exports.htmlPage = (title, filename, chunks, template) => new HtmlWebpackPlugin({
   title,
   hash: true,
@@ -10,6 +14,7 @@ exports.htmlPage = (title, filename, chunks, template) => new HtmlWebpackPlugin(
   filename: './pages/' + filename + '.html',
   template: template || path.resolve(__dirname, './page.ejs'),
   appMountId: 'app',
+  GTM_ID: CONFIG.GTM_ID,
   chunks
 })
 
