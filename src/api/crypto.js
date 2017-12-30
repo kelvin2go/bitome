@@ -4,7 +4,9 @@ import config from '../utils/config'
 import debug from '../utils/debug'
 
 const API_URL = {
-  coinMarket: `https://api.coinmarketcap.com/v1/ticker/?limit=10`
+  top10: {limit: '10'},
+  all: {limit: '0'},
+  coinMarket: `https://api.coinmarketcap.com/v1/ticker/?`
 }
 
 const checkCache = (key) => {
@@ -36,8 +38,17 @@ const cacheAPI = {
   }
 }
 
+const paramsStr = (data) => {
+  return Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&')
+}
+
 export default {
+  getAllCryptoPrice () {
+    const param = API_URL.all
+    return cacheAPI.call(API_URL.coinMarket + paramsStr(param))
+  },
   getCryptoPrice () {
-    return cacheAPI.call(API_URL.coinMarket)
+    const param = API_URL.top10
+    return cacheAPI.call(API_URL.coinMarket + paramsStr(param))
   }
 }
