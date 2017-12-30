@@ -1,7 +1,8 @@
-import CRYPTO from './crypto'
+import Crypto from './crypto'
+import Notify from './notification'
 
 const API = {
-  CRYPTO
+  Crypto,
+  Notify
 }
-
 export default API

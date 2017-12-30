@@ -128,6 +128,7 @@
   .showContainer{
     margin-top: 15px;
     margin-bottom: 17px;
+    margin-left: 0px !important;
   }
 
   .showExtra{

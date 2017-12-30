@@ -1,5 +1,5 @@
-import devConfig from './devConfig'
-import prodConfig from './prodConfig'
+import devConfig from './configDev'
+import prodConfig from './configProd'
 
 const CONFIG = process.env.NODE_ENV === 'production' ? prodConfig : devConfig
 

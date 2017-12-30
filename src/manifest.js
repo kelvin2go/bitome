@@ -2,7 +2,7 @@
 module.exports = {
   name: 'Bitome',
   version: '1.0.0',
-  description: 'Crypocurrency chrome extension plugins (data from coinmarketcap)',
+  description: 'The price checker for almost all cryptocurrencies (eg. BTC, ETH, XRP, LTC). Search / convert / set alert are in one place.',
   author: 'kelvin ho',
   manifest_version: 2,
   icons: { '16': 'icons/16.png', '128': 'icons/128.png' },
