@@ -4,16 +4,8 @@
 
 ## DEMO picture on chrome extension
 ### ScreenShot
-![screenShot](./demo/screenShot.png)
+![screenShot](./demo/ScreenShot.png)
 
-
-### Features
-
-![Features](./demo/demo-features.gif)
-
-### Notification
-
-![Notification](./demo/demo-notification.gif)
 
 
 ### Direct Install
@@ -50,7 +42,8 @@ npm run dev
 * [coinmarketcap api](https://coinmarketcap.com/api/)
 
 ## Forum / chat
-Discord [https://discord.gg/D59AWtk]
+[Discord](https://discord.gg/D59AWtk)
+* [TitanEmbeds](https://titanembeds.com/embed/399447374294024202)
 
 ## Feedback
 If any issue / new feature, leave issue / comment :)
