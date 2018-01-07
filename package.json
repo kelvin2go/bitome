@@ -25,7 +25,7 @@
     "lint": "eslint --ext .js,.vue src",
     "dev": "NODE_ENV=dev webpack --config ./core/webpack.dev.js --hide-modules",
     "build": "NODE_ENV=production webpack --config ./core/webpack.prod.js -p --progress  --hide-modules --colors",
-    "pack": "zip ./demo/build.zip ./build"
+    "pack": "zip ./demo/build.zip ./build/*"
   },
   "devDependencies": {
     "archiver": "^2.1.0",
