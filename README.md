@@ -3,8 +3,18 @@
  A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 10) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC)
 
 ## DEMO picture on chrome extension
+### ScreenShot
+![screenShot](./demo/screenShot.png)
 
-![Screenshot](./demo/screenShot.png)
+
+### Features
+
+![Features](./demo/demo-features.gif)
+
+### Notification
+
+![Notification](./demo/demo-notification.gif)
+
 
 ### Direct Install
 
@@ -14,7 +24,7 @@
 4. load the upziped build.zip
 5. enjoy! 🍻
 
-![Screenshot](./demo/demo.gif)
+![Screenshot](./demo/demo-install.gif)
 
 ### Dev Prerequisites
 * NPM 8 (8.9.3)
@@ -39,6 +49,8 @@ npm run dev
 * [Vue.js](https://vuejs.org/) - Vuejs
 * [coinmarketcap api](https://coinmarketcap.com/api/)
 
+## Forum / chat
+Discord [https://discord.gg/D59AWtk]
 
 ## Feedback
 If any issue / new feature, leave issue / comment :)
