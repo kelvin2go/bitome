@@ -43,6 +43,11 @@
         </div>
 
       </el-tab-pane>
+      <el-tab-pane label="chatroom"><span slot="label"><font-awesome-icon id="page-chatroom" icon="comments"/></span>
+        <div class="chatContainer">
+          <iframe src="https://titanembeds.com/embed/399447374294024202?theme=DiscordDark" height="600" width="400" frameborder="0"></iframe>
+        </div>
+      </el-tab-pane>
     </el-tab-pane>
     </el-tabs>
 
@@ -131,13 +136,15 @@
     padding:0;
     margin-top: 0px;
   }
-
+  .chatContainer{
+    height: auto;
+  }
 </style>
 <style lang="scss">
   .container{
     font-size: 14px;
     height: auto;
-    width: 250px;
+    width: auto;
     min-height: 300px;
     min-width: 250px;
   }
@@ -148,11 +155,15 @@
     &.el-tabs--right{
       height: 100%;
       .el-tabs__header{
-        margin-right: 4px;
+        margin-right: 3px;
+        margin-left: 2px
       }
       .el-tabs__content{
         height: 100%;
       }
     }
+  }
+  #pane-3{
+    padding-right: 28px;
   }
 </style>
