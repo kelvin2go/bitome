@@ -4,7 +4,7 @@
 
 ## DEMO picture on chrome extension
 ### ScreenShot
-![screenShot](./demo/ScreenShot.png)
+![screenShot](./demo/screenShot.png)
 
 
 
