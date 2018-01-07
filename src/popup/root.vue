@@ -2,7 +2,7 @@
   <div class="container">
 
     <el-tabs tab-position="right">
-      <el-tab-pane><span slot="label"><font-awesome-icon icon="chart-line"/> </span>
+      <el-tab-pane><span slot="label"><font-awesome-icon id="page-price" icon="chart-line"/> </span>
         <ul>
           <CryptoCard
             v-for="(crypto,index) in cryptos"
@@ -20,10 +20,18 @@
           </CryptoCard>
         </ul>
       </el-tab-pane>
-      <el-tab-pane><span slot="label"><font-awesome-icon icon="bell"/></span>
-          <Alert></Alert>
+      <el-tab-pane><span slot="label"><font-awesome-icon id="page-alert" icon="bell"/></span>
+          <AllDropDown
+            :cryptos="allCryptos"
+            v-on:selectedCrypto="setAlert"
+          />
+        </br>
+          <Alert
+            :alertCrypto="selectedCrypto"
+            :useUSD="useUSD"
+          ></Alert>
       </el-tab-pane>
-      <el-tab-pane label="Config"><span slot="label"><font-awesome-icon icon="cog"/></span>
+      <el-tab-pane label="Config"><span slot="label"><font-awesome-icon id="page-config" icon="cog"/></span>
 
         <div class="action">
           <el-switch
@@ -41,14 +49,17 @@
   </div>
 </template>
 <script>
+  import _ from 'lodash'
   import API from '../api'
   import CryptoCard from '../crypto/cryptoCard.vue'
+  import AllDropDown from '../crypto/allDropDown.vue'
   import Alert from '../crypto/alert.vue'
-  import debug from '../utils/debug'
   export default {
     data: () => ({
       cryptos: {},
-      useUSD: true
+      allCryptos: {},
+      useUSD: true,
+      selectedCrypto: ''
     }),
     computed: {
       showlist () {
@@ -60,13 +71,25 @@
     },
     components: {
       CryptoCard,
-      Alert
+      Alert,
+      AllDropDown
     },
     created () {
       const that = this
-      API.Crypto.getCryptoPrice().then(response => {
-        that.cryptos = response.data
-        debug.log(that.cryptos)
+      const getTop10 = () => {
+        API.Crypto.getCryptoPrice().then(response => {
+          that.cryptos = response.data
+        }).catch(e => {
+          this.error = e
+        })
+      }
+      getTop10()
+      setInterval(getTop10, 60 * 1000)
+
+      API.Crypto.getAllCryptoPrice().then(response => {
+        that.allCryptos = _.forEach(response.data, (value, key) => {
+          value['value'] = value.symbol
+        })
       }).catch(e => {
         this.error = e
       })
@@ -76,11 +99,15 @@
     },
     methods: {
       showCrypto (index) {
-        debug.log(this.showlist)
         if (index in this.showlist) {
           this.showlist[index] = !this.showlist[index]
         } else {
           this.showlist[index] = true
+        }
+      },
+      setAlert (selectedAlert) {
+        if (selectedAlert) {
+          this.selectedCrypto = selectedAlert
         }
       }
     },
@@ -92,10 +119,6 @@
   }
 </script>
 <style lang="scss" scoped>
-  .container{
-    width: 250px;
-    height: 300px;
-  }
   .el-switch{
     font-size: 20px;
   }
@@ -110,11 +133,26 @@
   }
 
 </style>
-<style>
-.el-tabs__item{
-  padding: 0 0 0 7px;
-}
-.el-tabs--right .el-tabs__header{
-  maring-right: 4px;
-}
+<style lang="scss">
+  .container{
+    font-size: 14px;
+    height: auto;
+    width: 250px;
+    min-height: 300px;
+    min-width: 250px;
+  }
+  .el-tabs__item{
+    padding: 0 0 0 7px;
+  }
+  .el-tabs {
+    &.el-tabs--right{
+      height: 100%;
+      .el-tabs__header{
+        margin-right: 4px;
+      }
+      .el-tabs__content{
+        height: 100%;
+      }
+    }
+  }
 </style>

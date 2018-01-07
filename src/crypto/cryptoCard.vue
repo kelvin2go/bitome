@@ -79,9 +79,9 @@
       fixname: {
         MIOTA: `IOTA`
       },
-      justShow: false,
       isConvertCurrency: true,
-      currencySymbol: 'USD'
+      currencySymbol: 'USD',
+      justShow: false
     }),
     computed: {
       isShow () {
@@ -160,8 +160,6 @@
   .el-input--mini .el-input__inner {
     height: 20px;
     padding: 0 3px;
-  }
-  .showExtra {
   }
   .green {
     color: #67C23A;
