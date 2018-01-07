@@ -1,9 +1,9 @@
 import CONFIG from './config'
 
 const DEBUG = {
-  log: (...data) => {
-    if (CONFIG.debug) {
-      console.log(...data)
+  log: (data, ...opts) => {
+    if (CONFIG.DEBUG) {
+      console.log(data, opts)
     }
   }
 }

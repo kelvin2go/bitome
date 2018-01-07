@@ -1,22 +1,47 @@
+const store = chrome.storage.sync
+
 export default {
-  get (key) {
+  lget (key) {
     try {
       return JSON.parse(localStorage.getItem(key))
     } catch (e) {}
   },
-  set (key, val) {
+  lset (key, val) {
     try {
       localStorage.setItem(key, JSON.stringify(val))
     } catch (e) {}
   },
-  remove (key) {
+  lremove (key) {
     try {
       localStorage.removeItem(key)
     } catch (e) {}
   },
-  clear () {
+  lclear () {
     try {
       localStorage.clear()
+    } catch (e) {}
+  },
+  get (key) {
+    try {
+      let result = new Promise((resolve) => store.get(key, (value) => {
+        resolve(value)
+      }))
+      return result
+    } catch (e) {}
+  },
+  set (key, val) {
+    try {
+      store.set({[key]: val})
+    } catch (e) {}
+  },
+  remove (key) {
+    try {
+      store.remove(key)
+    } catch (e) {}
+  },
+  clear () {
+    try {
+      store.clear()
     } catch (e) {}
   }
 }

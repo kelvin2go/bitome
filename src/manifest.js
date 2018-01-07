@@ -16,6 +16,7 @@ module.exports = {
     'contextMenus',
     'unlimitedStorage',
     'storage',
+    'alarms',
     'notifications',
     'identity',
     'identity.email'
