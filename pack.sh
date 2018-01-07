@@ -1,1 +1,1 @@
-zip ./demo/build.zip ./build
+zip -r ./demo/build.zip ./build
