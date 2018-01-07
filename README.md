@@ -2,7 +2,15 @@
 
  A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 10) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC)
 
-### Direct Install
+
+## Installation 
+  * Chrome store
+  * Download and install developer mode
+
+### Official Chrome web store
+1. On Chrome web store [Bitome](https://chrome.google.com/webstore/detail/bitome/clpjmbmmpfjncdielnigjekcjofmemhh)
+
+### Developer mode - Direct Install
 
 1. Download [Bitome](https://github.com/kelvin2go/bitome/raw/master/demo/build.zip)
 2. go to extensions (chrome://extensions)
