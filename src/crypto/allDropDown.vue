@@ -4,9 +4,10 @@
       <el-autocomplete
         v-model="pickedCrypto"
         :fetch-suggestions="querySearch"
-        placeholder="Crypto Symobol"
+        :placeholder="placeholder"
         @select="handleSelect"
         clearable
+        size="small"
       ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
   </el-row>
 </template>
@@ -19,7 +20,7 @@
     },
     mounted () {
     },
-    props: ['cryptos', 'title'],
+    props: ['cryptos', 'title', 'placeholder'],
     methods: {
       querySearch (queryString, cb) {
         let cryptoList = this.cryptos

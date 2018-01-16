@@ -9,8 +9,6 @@
 import config from '../utils/config'
 
 const set = (key, options) => {
-  console.info(`alaram is set ${key}:`)
-  console.info(options)
   chrome.alarms.create(key, {
     delayInMinutes: config.ALERT_TIME, periodInMinutes: config.ALERT_TIME}
   )

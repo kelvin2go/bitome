@@ -3,7 +3,7 @@
  A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 10) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC)
 
 
-## Installation 
+## Installation
   * Chrome store
   * Download and install developer mode
 
@@ -45,9 +45,21 @@ npm run dev
 
 #chrome://extensions load unpacked to project path
 ```
-
-### TO DO LIST
-* [trello](https://trello.com/b/DB49Ktsa/bitome-%F0%9F%A5%87)
+### Roadmap
+* TO DO LIST
+  * [trello](https://trello.com/b/DB49Ktsa/bitome-%F0%9F%A5%87)
+* 1.0.3
+  - fix performance on loading chat
+  - add raise color options
+  - search top 500 crypto currency and add to monitor
+* 1.0.2
+  - add Push notification alert
+  - add chat room
+  - add tabs
+  - cached API response
+  - add GTM
+* 1.0.1
+  - first deploy
 
 ## Built With
 

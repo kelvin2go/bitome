@@ -7,7 +7,7 @@ const API_URL = {
   default: (limit = 10) => {
     return { limit }
   },
-  all: {limit: '100'},
+  all: {limit: '500'},
   coinMarket: `https://api.coinmarketcap.com/v1/ticker/?`
 }
 
