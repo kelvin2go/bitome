@@ -7,7 +7,7 @@
           <span >{{symbol}}</span>
         </el-col>
         <el-col :xs="14">
-          <span :class="percent_change_1h > 0 ? 'green':'red'" v-if="useUSD"> ${{price_usd}}</span>
+          <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{price_usd}}</span>
           <span v-else> {{price_btc}}</span>
         </el-col>
       </div>
@@ -24,7 +24,7 @@
             <span v-else> BTC </span>
           </el-col>
           <el-col :xs="14">
-            <span :class="percent_change_1h > 0 ? 'green':'red'" v-if="useUSD"> ${{price_usd}}</span>
+            <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{price_usd}}</span>
             <span v-else>{{price_btc}}</span>
           </el-col>
         </el-row>
@@ -32,14 +32,14 @@
         <el-col :xs="10">
           last 1h
         </el-col>
-        <el-col :xs="14" :class="percent_change_1h > 0 ? 'green':'red'">
+        <el-col :xs="14" :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'">
           {{ percent_change_1h }} %
         </el-col>
 
         <el-col :xs="10">
           last 24h
         </el-col>
-        <el-col :xs="14" :class="percent_change_24h > 0 ? 'green':'red'">
+        <el-col :xs="14" :class="percent_change_24h > 0 ^ useRedUp? 'green':'red'">
           {{ percent_change_24h }} %
         </el-col>
 
@@ -66,6 +66,12 @@
             <el-input :placeholder="currencySymbol" size="mini" v-model="numCurrency"></el-input>
           </el-col>
         </el-row>
+        <el-row :gutter="10" v-show="haveRemove">
+          <el-col :xs="24" style="float:right">
+            <el-button type="text" size="mini" @click="removeMyCrypto"> <font-awesome-icon icon="trash" /> </el-button>
+          </el-col>
+        </el-row>
+
       </div>
     </el-row>
 
@@ -88,13 +94,16 @@
         return this.detail_show || this.justShow
       }
     },
-    props: ['symbol', 'name', 'price_usd', 'price_btc', 'detail_show', 'useUSD', 'percent_change_24h', 'percent_change_1h'],
+    props: ['symbol', 'name', 'price_usd', 'price_btc', 'detail_show', 'useUSD', 'percent_change_24h', 'percent_change_1h', 'haveRemove', 'useRedUp'],
     methods: {
       showMe () {
         if (!this.justShow) {
           this.justShow = true
           this.$emit('show')
         }
+      },
+      removeMyCrypto () {
+        this.$emit('removeMyCrypto')
       },
       carretShow () {
         this.justShow = !this.justShow

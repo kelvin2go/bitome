@@ -23,7 +23,6 @@ Vue.use(VueGtm, {
 })
 /* eslint-disable no-new */
 
-console.log(CONFIG)
 new Vue({
   el: '#root',
   render: h => h(root)
