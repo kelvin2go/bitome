@@ -1,6 +1,12 @@
 # Bitome
 
- A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 10) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC)
+ A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 10) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC). 
+ 
+ Features:
+ - Crypto price ticker checking
+ - price converter
+ - price alert
+ - real time chat
 
 
 ## Installation
@@ -10,15 +16,6 @@
 ### Official Chrome web store
 1. On Chrome web store [Bitome](https://chrome.google.com/webstore/detail/bitome/clpjmbmmpfjncdielnigjekcjofmemhh)
 
-### Developer mode - Direct Install
-
-1. Download [Bitome](https://github.com/kelvin2go/bitome/raw/master/demo/build.zip)
-2. go to extensions (chrome://extensions)
-3. developer mode (if not ready)
-4. load the upziped build.zip
-5. enjoy! 🍻
-
-![Screenshot](./demo/demo-install.gif)
 
 ## DEMO picture on chrome extension
 #### ScreenShot
@@ -29,7 +26,6 @@
 
 #### Notification
 ![screenShot](./demo/demo-notification.gif)
-
 
 
 ### Dev Prerequisites
@@ -43,7 +39,13 @@ npm install
 #run dev
 npm run dev
 
-#chrome://extensions load unpacked to project path
+```
+``` 
+# Load dev plugin steps
+# chrome://extensions load unpacked to project path
+1. go to extensions (chrome://extensions)
+2. developer mode (if not ready)
+3. load the upziped build.zip
 ```
 ### Roadmap
 * TO DO LIST
