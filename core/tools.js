@@ -15,7 +15,13 @@ exports.htmlPage = (title, filename, chunks, template) => new HtmlWebpackPlugin(
   template: template || path.resolve(__dirname, './page.ejs'),
   appMountId: 'app',
   GTM_ID: CONFIG.GTM_ID,
-  chunks
+  chunks,
+  minify: {
+    collapseWhitespace: true,
+    collapseInlineTagWhitespace: true,
+    removeComments: true,
+    removeRedundantAttributes: true
+  }
 })
 
 

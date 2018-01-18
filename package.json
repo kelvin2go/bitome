@@ -25,7 +25,7 @@
     "lint": "eslint --ext .js,.vue src",
     "dev": "NODE_ENV=dev webpack --config ./core/webpack.dev.js --hide-modules",
     "build": "NODE_ENV=production webpack --config ./core/webpack.prod.js -p --progress  --hide-modules --colors",
-    "pack": "zip -r ./demo/build.zip ./build"
+    "packDemo": "./pack.sh"
   },
   "devDependencies": {
     "archiver": "^2.1.0",
@@ -63,11 +63,12 @@
     "pug": "^2.0.0-rc.4",
     "pug-loader": "^2.3.0",
     "sass-loader": "^6.0.6",
+    "style-ext-html-webpack-plugin": "^3.4.6",
     "url-loader": "^0.6.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.2",
-    "wcer": "^0.0.8",
+    "wcer": "^1.0.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3",
     "webpack-merge": "^4.1.0",
