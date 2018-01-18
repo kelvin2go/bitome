@@ -6,6 +6,7 @@ const baseWebpack = require('./webpack.base')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const {styleLoaders} = require('./tools')
 
 process.env.NODE_ENV = 'production'
@@ -29,13 +30,23 @@ module.exports = merge(baseWebpack, {
     new ExtractTextPlugin({
       filename: 'css/[name].[contenthash].css'
     }),
+    new StyleExtHtmlWebpackPlugin({
+      minify: true
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   minChunks: function (module) {
-    //     return module.context && module.context.indexOf('node_modules') !== -1;
-    //   }
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        return (
+          module.resource &&
+          /\.js$/.test(module.resource) &&
+          module.resource.indexOf(
+            path.join(__dirname, '../node_modules')
+          ) === 0
+        )
+      }
+    }),
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'manifest',
     //   chunks: ['vendor']
