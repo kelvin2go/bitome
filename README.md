@@ -1,7 +1,7 @@
 # Bitome
 
- A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 10) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC). 
- 
+ A Chrome Extension cryptocurrency tracker converter (via coinmarketcap api). Check out the latest price on (top 500) Cryptocurrency as Bitcoin (BTC), Ethereum (ETH), Ripple (XRP), bitcoin cash (BCH), Lite coin(LTC).
+
  Features:
  - Crypto price ticker checking
  - price converter
@@ -40,7 +40,7 @@ npm install
 npm run dev
 
 ```
-``` 
+```
 # Load dev plugin steps
 # chrome://extensions load unpacked to project path
 1. go to extensions (chrome://extensions)
@@ -50,6 +50,10 @@ npm run dev
 ### Roadmap
 * TO DO LIST
   * [trello](https://trello.com/b/DB49Ktsa/bitome-%F0%9F%A5%87)
+* 1.0.4
+  - convert currency
+  - more icon / image
+  - update package dependency
 * 1.0.3
   - fix performance on loading chat
   - add raise color options

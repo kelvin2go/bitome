@@ -7,7 +7,7 @@
           <span >{{symbol}}</span>
         </el-col>
         <el-col :xs="14">
-          <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{price_usd}}</span>
+          <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{myPrice}}</span>
           <span v-else> {{price_btc}}</span>
         </el-col>
       </div>
@@ -20,11 +20,11 @@
             <el-button type="text" size="mini"><i @click="carretShow" class="el-icon-arrow-up"></i></el-button>
           </el-col>
           <el-col :xs="10">
-            <span v-if="useUSD">USD </span>
+            <span v-if="useUSD">{{currencyDisplay}} </span>
             <span v-else> BTC </span>
           </el-col>
           <el-col :xs="14">
-            <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{price_usd}}</span>
+            <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{myPrice}}</span>
             <span v-else>{{price_btc}}</span>
           </el-col>
         </el-row>
@@ -51,19 +51,19 @@
             <el-button type="text" size="mini"> <font-awesome-icon icon="exchange-alt" @click="changeConvertType"/> </el-button>
           </el-col>
           <el-col :xs="16">
-            <span> USD {{ numCrypto * price_usd }} </span>
+            <span> {{currencyDisplay}} {{ numCrypto * myPrice }} </span>
           </el-col>
         </el-row>
 
         <el-row :gutter="10" v-else>
           <el-col :xs="24">
-            <span> {{symbol}} {{ numCurrency / price_usd }} </span>
+            <span> {{symbol}} {{ numCurrency / myPrice }} </span>
           </el-col>
           <el-col :xs="2">
             <el-button type="text" size="mini"> <font-awesome-icon icon="exchange-alt" @click="changeConvertType"/> </el-button>
           </el-col>
           <el-col :xs="11">
-            <el-input :placeholder="currencySymbol" size="mini" v-model="numCurrency"></el-input>
+            <el-input :placeholder="currencyDisplay" size="mini" v-model="numCurrency"></el-input>
           </el-col>
         </el-row>
         <el-row :gutter="10" v-show="haveRemove">
@@ -86,15 +86,17 @@
         MIOTA: `IOTA`
       },
       isConvertCurrency: true,
-      currencySymbol: 'USD',
       justShow: false
     }),
     computed: {
+      myPrice () {
+        return this.currencyDisplay !== 'USD' ? this.currency_price : this.price_usd
+      },
       isShow () {
         return this.detail_show || this.justShow
       }
     },
-    props: ['symbol', 'name', 'price_usd', 'price_btc', 'detail_show', 'useUSD', 'percent_change_24h', 'percent_change_1h', 'haveRemove', 'useRedUp'],
+    props: ['symbol', 'name', 'price_usd', 'price_btc', 'detail_show', 'useUSD', 'percent_change_24h', 'percent_change_1h', 'haveRemove', 'useRedUp', 'currencyDisplay', 'currency_price'],
     methods: {
       showMe () {
         if (!this.justShow) {
