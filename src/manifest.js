@@ -23,7 +23,7 @@ module.exports = {
     'identity.email'
   ],
   browser_action: {
-    default_title: 'Biton - Crypto price',
+    default_title: 'Bitome - Crypto price',
     default_popup: 'pages/popup.html'
   },
   background: {
