@@ -1,5 +1,5 @@
-<template lang="pug">
-    div devtools
+<template>
+    <div>devtools</div>
 </template>
 <script>
   export default {

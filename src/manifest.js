@@ -1,7 +1,8 @@
 
 module.exports = {
-  name: 'Bitome',
-  version: '1.0.3',
+  name: 'Bitome - Cryptocurrency checker',
+  short_name: 'Bitome',
+  version: '1.0.5',
   description: 'The price checker for almost all cryptocurrencies (eg. BTC, ETH, XRP, LTC). Search / convert / set alert are in one place.',
   author: 'kelvin ho',
   manifest_version: 2,
@@ -22,7 +23,7 @@ module.exports = {
     'identity.email'
   ],
   browser_action: {
-    default_title: 'title',
+    default_title: 'Biton - Crypto price',
     default_popup: 'pages/popup.html'
   },
   background: {

@@ -1,5 +1,5 @@
-<template lang="pug">
-    div tab
+<template>
+    <div>tab</div>
 </template>
 <script>
   export default {
