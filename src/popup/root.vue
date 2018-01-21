@@ -111,7 +111,9 @@
 </template>
 <script>
   import Vue from 'vue'
-  import _ from 'lodash'
+  import _forEach from 'lodash/forEach'
+  import _isEmpty from 'lodash/isEmpty'
+  import _intersectionBy from 'lodash/intersectionBy'
   import API from '../api'
   import CryptoCard from '../crypto/cryptoCard.vue'
   import AllDropDown from '../crypto/allDropDown.vue'
@@ -173,13 +175,13 @@
       this.getAllCrypto()
       store.get(CRYPTO_DB_NAME)
         .then((db) => {
-          if (!_.isEmpty(db[CRYPTO_DB_NAME])) {
+          if (!_isEmpty(db[CRYPTO_DB_NAME])) {
             that.userCryptos = db[CRYPTO_DB_NAME]
           }
         })
       store.get(SETTING_DB_NAME)
         .then((db) => {
-          if (!_.isEmpty(db[SETTING_DB_NAME])) {
+          if (!_isEmpty(db[SETTING_DB_NAME])) {
             if (db[SETTING_DB_NAME].useRedUp) {
               that.useRedUp = db[SETTING_DB_NAME].useRedUp
             }
@@ -196,9 +198,10 @@
       getAllCrypto () {
         const that = this
         API.Crypto.getAllCryptoPrice().then(response => {
-          that.allCryptos = _.forEach(response.data, (value, key) => {
+          that.allCryptos = _forEach(response.data, (value, key) => {
             value['value'] = value.symbol
           })
+          that.userCryptos = _intersectionBy(response.data, that.userCryptos, 'id')
         }).catch(e => {
           this.error = e
         })

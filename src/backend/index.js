@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _forEach from 'lodash/forEach'
 import API from '../api'
 import store from '../ext/storage'
 import debug from '../utils/debug'
@@ -9,7 +9,7 @@ const onAlarm = (alarm) => {
   if (alarm.name && alarm.name.startsWith('PA_')) {
     API.Crypto.getAllCryptoPrice().then(response => {
       let result = {}
-      _.forEach(response.data, (value, key) => {
+      _forEach(response.data, (value, key) => {
         result[value.symbol] = value
       })
       return result

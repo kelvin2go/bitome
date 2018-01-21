@@ -1,5 +1,5 @@
 import axios from 'axios'
-import _ from 'lodash'
+import _isEmpty from 'lodash/isEmpty'
 import store from '../ext/storage'
 import config from '../utils/config'
 import debug from '../utils/debug'
@@ -41,7 +41,7 @@ const cacheAPI = {
     return new Promise((resolve, reject) => {
       store.get(SETTING_DB_NAME)
         .then((db) => {
-          if (!_.isEmpty(db[SETTING_DB_NAME])) {
+          if (!_isEmpty(db[SETTING_DB_NAME])) {
             if (db[SETTING_DB_NAME].currentCurrency && db[SETTING_DB_NAME].currentCurrency.value !== 'USD') {
               result.convert = db[SETTING_DB_NAME].currentCurrency.value
             }

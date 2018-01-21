@@ -53,11 +53,13 @@
   </el-row>
 </template>
 <script>
-  import _ from 'lodash'
+  import _forEach from 'lodash/forEach'
+  import _isEmpty from 'lodash/isEmpty'
+  import Vue from 'vue'
   import API from '../api'
   import store from '../ext/storage'
   import CryptoCard from './cryptoCard.vue'
-  import Vue from 'vue'
+
   const ALERT_DB_NAME = 'alerts'
   export default {
     data: () => ({
@@ -69,7 +71,7 @@
       let that = this
       store.get(ALERT_DB_NAME)
         .then((alarmList) => {
-          if (!_.isEmpty(alarmList[ALERT_DB_NAME])) {
+          if (!_isEmpty(alarmList[ALERT_DB_NAME])) {
             that.alarmList = alarmList[ALERT_DB_NAME]
           }
         })
@@ -109,7 +111,7 @@
       },
       displayAlarmList () {
         let x = []
-        _.forEach(this.alarmList, (alarm, key) => {
+        _forEach(this.alarmList, (alarm, key) => {
           const [, name, condition, alertAmount] = key.split('_')
           x.push({name, condition, alertAmount})
         })
