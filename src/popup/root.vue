@@ -113,6 +113,7 @@
   import Vue from 'vue'
   import _forEach from 'lodash/forEach'
   import _isEmpty from 'lodash/isEmpty'
+  import _intersectionBy from 'lodash/intersectionBy'
   import API from '../api'
   import CryptoCard from '../crypto/cryptoCard.vue'
   import AllDropDown from '../crypto/allDropDown.vue'
@@ -200,6 +201,7 @@
           that.allCryptos = _forEach(response.data, (value, key) => {
             value['value'] = value.symbol
           })
+          that.userCryptos = _intersectionBy(response.data, that.userCryptos, 'id')
         }).catch(e => {
           this.error = e
         })

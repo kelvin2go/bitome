@@ -90,7 +90,10 @@
     }),
     computed: {
       myPrice () {
-        return this.currencyDisplay !== 'USD' ? this.currency_price : this.price_usd
+        if (this.currencyDisplay !== 'USD') {
+          return this.currency_price || `USD ${this.price_usd}`
+        }
+        return this.price_usd
       },
       isShow () {
         return this.detail_show || this.justShow
