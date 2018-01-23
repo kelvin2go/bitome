@@ -5,11 +5,23 @@
         <font-awesome-icon icon="spinner"/>
       </div>
       <el-tab-pane><span slot="label"><font-awesome-icon id="page-price" icon="chart-line"/> </span>
-        <AllDropDown
-          :cryptos="allCryptos"
-          placeholder="Search symbol"
-          v-on:selectedCrypto="addUserCrypto"
-        />
+        <el-row class="header" :gutter="10">
+          <el-col :xs="15">
+            <AllDropDown
+              :cryptos="allCryptos"
+              placeholder="Search symbol"
+              v-on:selectedCrypto="addUserCrypto"
+            />
+          </el-col>
+          <el-select class="select":xs="7" v-model="currentCurrency.value">
+            <el-option
+              v-for="item in currencys"
+              :key="`currencys-${item.value}`"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-row>
         <ul>
           <CryptoCard
             v-for="(crypto,index) in userCryptos"
@@ -48,8 +60,6 @@
             v-on:show="showCrypto(index)"
           >
           </CryptoCard>
-
-
         </ul>
       </el-tab-pane>
       <el-tab-pane><span slot="label"><font-awesome-icon id="page-alert" icon="bell"/></span>
@@ -267,6 +277,17 @@
     width: auto;
     min-height: 300px;
     min-width: 250px;
+    .header{
+      &.el-row{
+        padding-bottom: 4px;
+      }
+      .el-col{
+        height: 30px;
+      }
+      .select .el-input--suffix .el-input__inner {
+        height: 32px;
+      }
+    }
   }
   .el-tabs__item{
     padding: 0 0 0 7px;
