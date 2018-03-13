@@ -38,6 +38,6 @@ module.exports = {
     matches: ['<all_urls>'],
     all_frames: true
   }],
-  content_security_policy: "connect-src ws:; style-src https://fonts.googleapis.com/ 'unsafe-inline'; script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com 'unsafe-eval'; object-src 'self'",
+  content_security_policy: "connect-src 'self' ws://localhost:9090 https://api.coinmarketcap.com; style-src https://fonts.googleapis.com/ 'unsafe-inline'; script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com 'unsafe-eval'; object-src 'self'",
   web_accessible_resources: [ 'panel.html', 'js/content.js' ]
 }
