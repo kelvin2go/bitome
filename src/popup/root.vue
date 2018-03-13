@@ -5,16 +5,28 @@
         <font-awesome-icon icon="spinner"/>
       </div>
       <el-tab-pane><span slot="label"><font-awesome-icon id="page-price" icon="chart-line"/> </span>
-        <AllDropDown
-          :cryptos="allCryptos"
-          placeholder="Search symbol"
-          v-on:selectedCrypto="addUserCrypto"
-        />
+        <el-row class="header" :gutter="10">
+          <el-col :xs="15">
+            <AllDropDown
+              :cryptos="allCryptos"
+              placeholder="Search symbol"
+              v-on:selectedCrypto="addUserCrypto"
+            />
+          </el-col>
+          <el-select class="select":xs="7" v-model="currentCurrency.value">
+            <el-option
+              v-for="item in currencys"
+              :key="`currencys-${item.value}`"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-row>
         <ul>
           <CryptoCard
             v-for="(crypto,index) in userCryptos"
             :key="crypto.id"
-            :useUSD="useUSD"
+            :useUSD="settings.useUSD"
             :useRedUp="settings.useRedUp"
             :symbol="crypto.symbol"
             :name="crypto.name"
@@ -34,7 +46,7 @@
           <CryptoCard
             v-for="(crypto,index) in cryptos"
             :key="crypto.id"
-            :useUSD="useUSD"
+            :useUSD="settings.useUSD"
             :useRedUp="settings.useRedUp"
             :symbol="crypto.symbol"
             :name="crypto.name"
@@ -49,7 +61,6 @@
           >
           </CryptoCard>
 
-
         </ul>
       </el-tab-pane>
       <el-tab-pane><span slot="label"><font-awesome-icon id="page-alert" icon="bell"/></span>
@@ -61,7 +72,9 @@
         </br>
           <Alert
             :alertCrypto="selectedCrypto"
-            :useUSD="useUSD"
+            :useUSD="settings.useUSD"
+            :useRedUp="settings.useRedUp"
+            :currencyDisplay="currencyDisplay"
           ></Alert>
       </el-tab-pane>
       <el-tab-pane label="Config"><span slot="label"><font-awesome-icon id="page-config" icon="cog"/></span>
@@ -76,7 +89,7 @@
               </el-switch>
             </el-col>
             <el-col :xs="24">
-              <el-col :xs="10">Raise color: </el-col>
+              Raise color:
               <el-switch
                 v-model="useRedUp"
                 active-color="#ff4949"
@@ -135,15 +148,19 @@
       currentCurrency: {
         value: 'USD'
       },
+      inited: false,
       currencys: CONFIG.currencys
     }),
     computed: {
       settings () {
         const setting = {
           useRedUp: this.useRedUp,
+          useUSD: this.useUSD,
           currentCurrency: this.currentCurrency
         }
-        store.set(SETTING_DB_NAME, setting)
+        if (this.inited) {
+          store.set(SETTING_DB_NAME, setting)
+        }
         return setting
       },
       currencyLowerCase () {
@@ -182,16 +199,19 @@
       store.get(SETTING_DB_NAME)
         .then((db) => {
           if (!_isEmpty(db[SETTING_DB_NAME])) {
-            if (db[SETTING_DB_NAME].useRedUp) {
+            if ('useRedup' in db[SETTING_DB_NAME]) {
               that.useRedUp = db[SETTING_DB_NAME].useRedUp
             }
-            if (db[SETTING_DB_NAME].currentCurrency) {
+            if ('currentCurrency' in db[SETTING_DB_NAME]) {
               that.currentCurrency = db[SETTING_DB_NAME].currentCurrency
             }
+            if ('useUSD' in db[SETTING_DB_NAME]) {
+              that.useUSD = db[SETTING_DB_NAME].useUSD
+            }
           }
+        }).then(() => {
+          that.inited = true
         })
-    },
-    mounted () {
       this.$gtm.trackView('popup', '/popup.html')
     },
     methods: {
@@ -267,6 +287,17 @@
     width: auto;
     min-height: 300px;
     min-width: 250px;
+    .header{
+      &.el-row{
+        padding-bottom: 4px;
+      }
+      .el-col{
+        height: 30px;
+      }
+      .select .el-input--suffix .el-input__inner {
+        height: 32px;
+      }
+    }
   }
   .el-tabs__item{
     padding: 0 0 0 7px;
@@ -292,6 +323,5 @@
   }
   #pane-3{
     padding-right: 28px;
-
   }
 </style>

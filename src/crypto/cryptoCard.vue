@@ -6,8 +6,8 @@
           <i class="cc" :class="namefix(symbol)" :title="symbol" :data-name="name"></i>
           <span >{{symbol}}</span>
         </el-col>
-        <el-col :xs="14">
-          <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{myPrice}}</span>
+        <el-col :xs="14" :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" >
+          <span v-if="useUSD"> ${{myPrice}}</span>
           <span v-else> {{price_btc}}</span>
         </el-col>
       </div>
@@ -15,31 +15,33 @@
       <div v-else class="showExtra">
         <el-row :gutter="10" class="title">
           <el-col :xs="24" class="showTitle" >
-            <i class="cc" :class="namefix(symbol)" :title="symbol" :data-name="name"></i>
-            <span >{{name}}</span>
+            <a :href="cmLink" target="_blank"> 
+              <i class="cc" :class="namefix(symbol)" :title="symbol" :data-name="name"></i>
+              <span >{{name}}</span>
+            </a>
             <el-button type="text" size="mini"><i @click="carretShow" class="el-icon-arrow-up"></i></el-button>
           </el-col>
           <el-col :xs="10">
             <span v-if="useUSD">{{currencyDisplay}} </span>
             <span v-else> BTC </span>
           </el-col>
-          <el-col :xs="14">
-            <span :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" v-if="useUSD"> ${{myPrice}}</span>
+          <el-col :xs="14" :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'" >
+            <span v-if="useUSD"> ${{myPrice}}</span>
             <span v-else>{{price_btc}}</span>
           </el-col>
         </el-row>
 
-        <el-col :xs="10">
+        <el-col :xs="7">
           last 1h
         </el-col>
-        <el-col :xs="14" :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'">
+        <el-col :xs="17" :class="percent_change_1h > 0 ^ useRedUp? 'green':'red'">
           {{ percent_change_1h }} %
         </el-col>
 
-        <el-col :xs="10">
+        <el-col :xs="7">
           last 24h
         </el-col>
-        <el-col :xs="14" :class="percent_change_24h > 0 ^ useRedUp? 'green':'red'">
+        <el-col :xs="17" :class="percent_change_24h > 0 ^ useRedUp? 'green':'red'">
           {{ percent_change_24h }} %
         </el-col>
 
@@ -97,6 +99,9 @@
       },
       isShow () {
         return this.detail_show || this.justShow
+      },
+      cmLink () {
+        return `https://coinmarketcap.com/currencies/${this.name.toLowerCase()}`
       }
     },
     props: ['symbol', 'name', 'price_usd', 'price_btc', 'detail_show', 'useUSD', 'percent_change_24h', 'percent_change_1h', 'haveRemove', 'useRedUp', 'currencyDisplay', 'currency_price'],
@@ -156,15 +161,29 @@
     .showTitle{
       width: 98%;
       border-bottom: 1px solid grey;
+      a {
+        > span{
+          padding-left: 26px;
+        }
+        .cc {
+          font-size: 40px;
+          position: absolute;
+          top: -10px;
+          left: -10px;
+        }
+        text-decoration: none;
+        &:link {
+          color: #09c0e8;
+        }
+        /* visited link */
+        &:visited {
+          color: #6ab3bf;
+        }
 
-      > span{
-        padding-left: 26px;
-      }
-      .cc {
-        font-size: 40px;
-        position: absolute;
-        top: -10px;
-        left: -10px;
+        /* mouse over link */
+        &:hover {
+          color: #a9dfea;
+        }
       }
     }
     .el-row{

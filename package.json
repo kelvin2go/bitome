@@ -1,8 +1,8 @@
 {
-  "name": "vue-chrome-extension-template",
+  "name": "CryptoChecker-chrome-extension",
   "version": "0.0.1",
-  "description": "vue.js chrome extension template (wcer)",
-  "author": "works.yura@gmail.com",
+  "description": "a crypto currency ticket made with (wcer)",
+  "author": "kelvinho84@gmail.com",
   "license": "MIT",
   "private": false,
   "dependencies": {

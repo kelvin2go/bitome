@@ -13,12 +13,15 @@
           <CryptoCard
             :key="alertCrypto.id"
             :useUSD="useUSD"
+            :useRedUp="useRedUp"
             :symbol="alertCrypto.symbol"
             :name="alertCrypto.name"
             :price_btc="alertCrypto.price_btc"
             :price_usd="alertCrypto.price_usd"
+            :currency_price="currency_price"
             :percent_change_1h="alertCrypto.percent_change_1h"
             :percent_change_24h="alertCrypto.percent_change_24h"
+            :currencyDisplay="currencyDisplay"
             :just_show="true"
           />
         </ul>
@@ -37,8 +40,9 @@
       </el-row>
     </div>
     <el-row>
-      <ul class="alarmList">
-        <li v-for="(alarm,index) in displayAlarmList()">
+      {{displayAlarmList.length}} alarm
+      <ul class="alarmList" v-if="displayAlarmList.length > 0">
+        <li v-for="(alarm,index) in displayAlarmList">
           <el-row>
             <el-col :xs="20">
               {{alarm.name}} {{alarm.condition}} {{alarm.alertAmount}}
@@ -67,6 +71,16 @@
       selectCondition: '>',
       alarmList: []
     }),
+    computed: {
+      displayAlarmList () {
+        let x = []
+        _forEach(this.alarmList, (alarm, key) => {
+          const [, name, condition, alertAmount] = key.split('_')
+          x.push({name, condition, alertAmount})
+        })
+        return x
+      }
+    },
     created () {
       let that = this
       store.get(ALERT_DB_NAME)
@@ -77,7 +91,7 @@
         })
       this.alertAmount = this.alertCrypto.price_usd
     },
-    props: ['alertCrypto', 'useUSD'],
+    props: ['alertCrypto', 'useUSD', 'useRedUp', 'currency_price', 'currencyDisplay'],
     methods: {
       addAlert () {
         const condition = this.selectCondition === '>' ? 'above' : 'below'
@@ -108,14 +122,6 @@
         }
         store.set(ALERT_DB_NAME, this.alarmList)
         API.Notify.set(key, options)
-      },
-      displayAlarmList () {
-        let x = []
-        _forEach(this.alarmList, (alarm, key) => {
-          const [, name, condition, alertAmount] = key.split('_')
-          x.push({name, condition, alertAmount})
-        })
-        return x
       }
     },
     components: {
@@ -147,6 +153,9 @@
   .alarmList{
     border: 1px solid #e0eaf3ee;
     border-radius: 3px;
+  }
+  .empty{
+    color: grey;
   }
 }
 
