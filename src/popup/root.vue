@@ -97,6 +97,14 @@
               >
               </el-switch>
             </el-col>
+            <el-col :xs="24">
+              Marquee:
+              <el-switch
+                v-model="marquee"
+                active-color="#13ce66"
+              >
+              </el-switch>
+            </el-col>
           </el-row :gutter="10">
             <el-col :xs="24" class="large">
               <el-col :xs="10">Currencys: </el-col>
@@ -145,6 +153,7 @@
       selectedCrypto: '',
       showChat: false,
       useRedUp: false,
+      marquee: true,
       currentCurrency: {
         value: 'USD'
       },
@@ -156,11 +165,13 @@
         const setting = {
           useRedUp: this.useRedUp,
           useUSD: this.useUSD,
-          currentCurrency: this.currentCurrency
+          currentCurrency: this.currentCurrency,
+          marquee: this.marquee
         }
         if (this.inited) {
           store.set(SETTING_DB_NAME, setting)
         }
+        console.log(this.inited)
         return setting
       },
       currencyLowerCase () {
@@ -188,7 +199,7 @@
     },
     created () {
       const that = this
-      setInterval(this.getTop10(), 60 * 1000)
+      setInterval(this.getTop10, 60 * 1000)
       this.getAllCrypto()
       store.get(CRYPTO_DB_NAME)
         .then((db) => {
@@ -207,6 +218,9 @@
             }
             if ('useUSD' in db[SETTING_DB_NAME]) {
               that.useUSD = db[SETTING_DB_NAME].useUSD
+            }
+            if ('marquee' in db[SETTING_DB_NAME]) {
+              that.marquee = db[SETTING_DB_NAME].marquee
             }
           }
         }).then(() => {
