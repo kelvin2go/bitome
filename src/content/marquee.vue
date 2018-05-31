@@ -24,7 +24,6 @@
     },
     created () {
       document.body.className += ' ' + 'bitome'
-      console.log('2223')
     },
     mounted () { },
     methods: {
