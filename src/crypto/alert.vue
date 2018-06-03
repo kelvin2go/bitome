@@ -120,6 +120,13 @@
           ...this.alarmList,
           [key]: options
         }
+        this.$gtm.trackEvent({
+          event: 'BTM-ALERT',
+          category: 'ALERT',
+          action: `setting ${this.alertCrypto.symbol}`,
+          label: msg,
+          value: this.alertAmount
+        })
         store.set(ALERT_DB_NAME, this.alarmList)
         API.Notify.set(key, options)
       }

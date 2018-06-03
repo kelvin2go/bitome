@@ -21,7 +21,7 @@ bitome.setAttribute('id', 'root')
 
 document.body.appendChild(bitome)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = CONFIG.debug
 Vue.use(ElementUI)
 Vue.use(VueGtm, {
   debug: CONFIG.debug // Whether or not display console logs debugs (optional)
