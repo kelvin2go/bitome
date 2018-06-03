@@ -2,7 +2,7 @@
 module.exports = {
   name: 'Bitome - Cryptocurrency checker',
   short_name: 'Bitome',
-  version: '1.0.7',
+  version: '1.0.8',
   description: 'The price checker for almost all cryptocurrencies (eg. BTC, ETH, XRP, LTC). Search / convert / set alert are in one place.',
   author: 'kelvin ho',
   manifest_version: 2,
