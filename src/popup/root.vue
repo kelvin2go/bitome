@@ -171,7 +171,6 @@
         if (this.inited) {
           store.set(SETTING_DB_NAME, setting)
         }
-        console.log(this.inited)
         return setting
       },
       currencyLowerCase () {
@@ -251,6 +250,13 @@
       addUserCrypto (crypto) {
         this.userCryptos.push(crypto)
         store.set(CRYPTO_DB_NAME, this.userCryptos)
+        this.$gtm.trackEvent({
+          event: 'BTM-SEARCH',
+          category: 'SEARCH',
+          action: 'search',
+          label: crypto.symbol,
+          value: crypto.price_usd
+        })
       },
       removeUserCrypto (cryptoID) {
         Vue.delete(this.userCryptos, cryptoID)

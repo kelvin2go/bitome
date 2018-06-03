@@ -28,6 +28,10 @@ Vue.use(VueGtm, {
 })
 /* eslint-disable no-new */
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log('sent from tab.id=', sender.tab.id)
+})
+
 new Vue({
   el: '#root',
   render: h => h(root)

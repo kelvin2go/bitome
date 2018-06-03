@@ -1,12 +1,13 @@
 <template>
-  <div class="top-bar" :class="marquee ? 'active' : ''" v-if="marquee">
+  <div class="top-bar" :class="[{'active': marquee, hide: hide}]" v-if="marquee">
     <Marquee
       :cryptos="joinCryptos"
       :useUSD="useUSD"
       :useRedUp="settings.useRedUp"
       :currencyDisplay="currencyDisplay"
       :currencyLowerCase="currencyLowerCase"
-      v-on:cancelMarquee="cancelMarquee"
+      @cancelMarquee="cancelMarquee"
+      @collapseContainer="collapseContainer"
     />
   </div>
 </template>
@@ -28,6 +29,7 @@ export default {
     useUSD: true,
     useRedUp: false,
     marquee: false,
+    hide: false,
     currentCurrency: {
       value: 'USD'
     },
@@ -70,6 +72,9 @@ export default {
   },
   mounted () { },
   methods: {
+    collapseContainer (collapse) {
+      this.hide = collapse
+    },
     saveSettings () {
       const setting = {
         useRedUp: this.useRedUp,
@@ -121,14 +126,20 @@ export default {
 }
 </script>
 <style lang="scss">
-  .top-bar.active {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 18px;
-    height: 18px;
-    background: white;
-    z-index: 999999999;
+  .top-bar {
+    &.active {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 18px;
+      height: 18px;
+      background: white;
+      z-index: 999999999;
+      border: none;
+    }
+    &.hide {
+      background: none;
+    }
   }
 </style>
