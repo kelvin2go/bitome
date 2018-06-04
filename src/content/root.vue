@@ -33,7 +33,7 @@ export default {
       currentCurrency: {
         value: 'USD'
       },
-      marquee: true,
+      marquee: false,
       useRedUp: false,
       useUSD: true
     },
@@ -86,11 +86,19 @@ export default {
           if (JSON.stringify(this.settings) === JSON.stringify(db[SETTING_DB_NAME])) {
             return
           }
-          const settings = db[SETTING_DB_NAME] || {}
-          return settings
-        }).then((savedSettings) => {
-          if (savedSettings) {
-            that.settings = savedSettings
+          if (!_isEmpty(db[SETTING_DB_NAME])) {
+            if ('useRedup' in db[SETTING_DB_NAME]) {
+              that.settings.useRedUp = db[SETTING_DB_NAME].useRedUp
+            }
+            if ('currentCurrency' in db[SETTING_DB_NAME]) {
+              that.settings.currentCurrency = db[SETTING_DB_NAME].currentCurrency
+            }
+            if ('useUSD' in db[SETTING_DB_NAME]) {
+              that.settings.useUSD = db[SETTING_DB_NAME].useUSD
+            }
+            if ('marquee' in db[SETTING_DB_NAME]) {
+              that.settings.marquee = db[SETTING_DB_NAME].marquee
+            }
           }
         })
     },

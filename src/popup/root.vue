@@ -163,7 +163,6 @@
     methods: {
       changeSettings (newSettings) {
         this.settings = newSettings
-        console.log(newSettings)
       },
       getAllCrypto () {
         const that = this
