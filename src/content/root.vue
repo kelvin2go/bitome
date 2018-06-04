@@ -48,7 +48,6 @@ export default {
       this.cryptos.forEach((element) => {
         ary.push(element)
       })
-      console.log(ary)
       return ary
     },
     currencyLowerCase () {
@@ -63,13 +62,12 @@ export default {
     this.getTop10()
     this.getAllCrypto()
     setInterval(this.loadSettings, 5 * 1000)
-    setInterval(this.getTop10, 60 * 1000)
+    setInterval(this.getTop10, 30 * 1000)
     store.get(CRYPTO_DB_NAME)
       .then((db) => {
         if (!_isEmpty(db[CRYPTO_DB_NAME])) {
           that.userCryptos = db[CRYPTO_DB_NAME]
         }
-        console.log(that.userCryptos)
       })
   },
   mounted () { },
@@ -102,10 +100,7 @@ export default {
         that.allCryptos = _forEach(response.data, (value, key) => {
           value['value'] = value.symbol
         })
-        console.log(that.userCryptos)
         that.userCryptos = _intersectionBy(response.data, that.userCryptos, 'id')
-
-        console.log(that.userCryptos)
       }).catch(e => {
         this.error = e
       })

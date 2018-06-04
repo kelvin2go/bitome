@@ -42,7 +42,7 @@
             v-on:removeMyCrypto="removeUserCrypto(index)"
           >
           </CryptoCard>
-          <li></li>
+          <li> {{settings.userRedUp}} </li>
           <CryptoCard
             v-for="(crypto,index) in cryptos"
             :key="crypto.id"
@@ -79,7 +79,7 @@
       </el-tab-pane>
       <el-tab-pane label="Config"><span slot="label"><font-awesome-icon id="page-config" icon="cog"/></span>
         <div class="action">
-          <Settings @settings="changeSettings"/>
+          <Settings @changeSettings="changeSettings"/>
         </div>
       </el-tab-pane>
       <el-tab-pane label="chatroom" ><span slot="label" @click="showChat=true"><font-awesome-icon id="page-chatroom" icon="comments"/></span>
@@ -115,12 +115,12 @@
       selectedCrypto: '',
       showChat: false,
       settings: {
-        useUSD: true,
-        useRedUp: false,
-        marquee: true,
         currentCurrency: {
           value: 'USD'
-        }
+        },
+        marquee: true,
+        useRedUp: false,
+        useUSD: true
       },
       inited: false,
       currencys: CONFIG.currencys
@@ -157,13 +157,13 @@
           if (!_isEmpty(db[CRYPTO_DB_NAME])) {
             that.userCryptos = db[CRYPTO_DB_NAME]
           }
-          console.log(that.userCryptos)
         })
       this.$gtm.trackView('popup', '/popup.html')
     },
     methods: {
       changeSettings (newSettings) {
         this.settings = newSettings
+        console.log(newSettings)
       },
       getAllCrypto () {
         const that = this
