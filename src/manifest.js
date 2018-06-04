@@ -38,7 +38,6 @@ module.exports = {
       'js/content.js'
     ],
     run_at: 'document_idle',
-    all_frames: true,
     matches: ['http://*/*', 'https://*/*']
   }],
   content_security_policy: "connect-src 'self' ws://localhost:9090 https://api.coinmarketcap.com; style-src https://fonts.googleapis.com/ 'unsafe-inline'; script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com 'unsafe-eval'; object-src 'self'",

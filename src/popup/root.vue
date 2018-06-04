@@ -13,7 +13,7 @@
               v-on:selectedCrypto="addUserCrypto"
             />
           </el-col>
-          <el-select class="select":xs="7" v-model="currentCurrency.value">
+          <el-select class="select":xs="7" v-model="settings.currentCurrency.value">
             <el-option
               v-for="item in currencys"
               :key="`currencys-${item.value}`"
@@ -79,45 +79,7 @@
       </el-tab-pane>
       <el-tab-pane label="Config"><span slot="label"><font-awesome-icon id="page-config" icon="cog"/></span>
         <div class="action">
-          <el-row :gutter="10">
-            <el-col :xs="24">
-              <el-switch
-                v-model="useUSD"
-                :active-text="currencyDisplay"
-                inactive-text="BTC"
-              >
-              </el-switch>
-            </el-col>
-            <el-col :xs="24">
-              Raise color:
-              <el-switch
-                v-model="useRedUp"
-                active-color="#ff4949"
-                inactive-color="#13ce66"
-              >
-              </el-switch>
-            </el-col>
-            <el-col :xs="24">
-              Marquee:
-              <el-switch
-                v-model="marquee"
-                active-color="#13ce66"
-              >
-              </el-switch>
-            </el-col>
-          </el-row :gutter="10">
-            <el-col :xs="24" class="large">
-              <el-col :xs="10">Currencys: </el-col>
-              <el-select class="select":xs="7" v-model="currentCurrency.value">
-                <el-option
-                  v-for="item in currencys"
-                  :key="`currencys-${item.value}`"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
-            </el-col>
-          </el-row>
+          <Settings @settings="changeSettings"/>
         </div>
       </el-tab-pane>
       <el-tab-pane label="chatroom" ><span slot="label" @click="showChat=true"><font-awesome-icon id="page-chatroom" icon="comments"/></span>
@@ -127,7 +89,6 @@
       </el-tab-pane>
     </el-tab-pane>
     </el-tabs>
-
   </div>
 </template>
 <script>
@@ -136,50 +97,42 @@
   import _isEmpty from 'lodash/isEmpty'
   import _intersectionBy from 'lodash/intersectionBy'
   import API from '../api'
-  import CryptoCard from '../crypto/cryptoCard.vue'
-  import AllDropDown from '../crypto/allDropDown.vue'
   import CONFIG from '../utils/config'
-  import Alert from '../crypto/alert.vue'
   import store from '../ext/storage'
+
+  import Alert from '../crypto/alert.vue'
+  import AllDropDown from '../crypto/allDropDown.vue'
+  import CryptoCard from '../crypto/cryptoCard.vue'
+  import Settings from '../options/root.vue'
+
   const CRYPTO_DB_NAME = 'mycrypto'
-  const SETTING_DB_NAME = 'settings'
 
   export default {
     data: () => ({
       cryptos: [],
       userCryptos: [],
       allCryptos: [],
-      useUSD: true,
       selectedCrypto: '',
       showChat: false,
-      useRedUp: false,
-      marquee: true,
-      currentCurrency: {
-        value: 'USD'
+      settings: {
+        useUSD: true,
+        useRedUp: false,
+        marquee: true,
+        currentCurrency: {
+          value: 'USD'
+        }
       },
       inited: false,
       currencys: CONFIG.currencys
     }),
     computed: {
-      settings () {
-        const setting = {
-          useRedUp: this.useRedUp,
-          useUSD: this.useUSD,
-          currentCurrency: this.currentCurrency,
-          marquee: this.marquee
-        }
-        if (this.inited) {
-          store.set(SETTING_DB_NAME, setting)
-        }
-        return setting
-      },
       currencyLowerCase () {
-        return this.currentCurrency.value.toLowerCase()
+        return this.settings.currentCurrency.value.toLowerCase()
       },
       currencyDisplay () {
         this.getTop10()
         this.getAllCrypto()
-        return this.currentCurrency.value
+        return this.settings.currentCurrency.value
       },
       showlist () {
         return Object.keys(this.cryptos).reduce((pre, current) => {
@@ -191,43 +144,27 @@
     components: {
       CryptoCard,
       Alert,
-      AllDropDown
-    },
-    beforeCreated () {
-      this.getTop10()
+      AllDropDown,
+      Settings
     },
     created () {
       const that = this
       setInterval(this.getTop10, 60 * 1000)
+      this.getTop10()
       this.getAllCrypto()
       store.get(CRYPTO_DB_NAME)
         .then((db) => {
           if (!_isEmpty(db[CRYPTO_DB_NAME])) {
             that.userCryptos = db[CRYPTO_DB_NAME]
           }
-        })
-      store.get(SETTING_DB_NAME)
-        .then((db) => {
-          if (!_isEmpty(db[SETTING_DB_NAME])) {
-            if ('useRedup' in db[SETTING_DB_NAME]) {
-              that.useRedUp = db[SETTING_DB_NAME].useRedUp
-            }
-            if ('currentCurrency' in db[SETTING_DB_NAME]) {
-              that.currentCurrency = db[SETTING_DB_NAME].currentCurrency
-            }
-            if ('useUSD' in db[SETTING_DB_NAME]) {
-              that.useUSD = db[SETTING_DB_NAME].useUSD
-            }
-            if ('marquee' in db[SETTING_DB_NAME]) {
-              that.marquee = db[SETTING_DB_NAME].marquee
-            }
-          }
-        }).then(() => {
-          that.inited = true
+          console.log(that.userCryptos)
         })
       this.$gtm.trackView('popup', '/popup.html')
     },
     methods: {
+      changeSettings (newSettings) {
+        this.settings = newSettings
+      },
       getAllCrypto () {
         const that = this
         API.Crypto.getAllCryptoPrice().then(response => {
@@ -298,7 +235,6 @@
   .chatContainer{
     height: auto;
   }
-
 </style>
 <style lang="scss">
   .container{

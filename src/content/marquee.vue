@@ -1,22 +1,24 @@
 <template>
   <div>
     <marquee behavior="scroll" direction="left" v-if="!collapse">
-      <div v-for="crypto in cryptos">
+      <div class="crypto" v-for="crypto in cryptos">
         <a :href="cmLink(crypto)" target="_blank">
-          {{crypto.symbol}} <span :class="crypto.percent_change_1h > 0 ? 'green':''">
+          {{crypto.symbol}} <span :class="crypto.percent_change_1h > 0 ^ useRedUp ? 'green':''">
             <span v-if="useUSD">${{myPrice(crypto)}} </span>
             <span v-else> B{{crypto.price_btc}} </span>
           </span>
         </a>
       </div>
     </marquee>
-    <div class="actions" @mouseover="hover=true" @mouseleave="hover=false">
-      <img class="btm-icon" src="https://lh3.googleusercontent.com/ODk2BOfKLGabkhgkvOdDnhmMcZVk850BN8AmCjkpp1EC_MsIGDp7KiAMgf5P-xQU6JKbyZz6=w26-h26-e365"/>
-      <template v-if="hover">
+    <div class="actions" >
+      <div>
+        <img class="btm-icon" src="https://lh3.googleusercontent.com/ODk2BOfKLGabkhgkvOdDnhmMcZVk850BN8AmCjkpp1EC_MsIGDp7KiAMgf5P-xQU6JKbyZz6=w26-h26-e365"/>
+      </div>
+      <div class="hoverc">
         <i class="el-icon-caret-right" v-if="!collapse" @click="handleToggle"></i>
         <i class="el-icon-caret-left" v-if="collapse" @click="handleToggle"></i>
         <a href="#" @click="cancelMarquee"><i class="el-icon-close"></i></a>
-      </template>
+      </div>
     </div>
   </div>
 </template>
@@ -65,8 +67,7 @@
       color: black !important;
     }
   }
-
-  div {
+  .crypto {
     font-size: 16px !important;
     height: 18px !important;
     line-height: 18px !important;
@@ -74,24 +75,48 @@
     span {
       background-color: white;
       padding-right: 8px;
-      color: #f34146 !important;
+      color: #f34146;
       &.green {
         color: #81c14f !important;
+        span {
+          color: #81c14f !important;
+        }
       }
     }
   }
   .actions{
-    position: fixed;
-    top: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.8);
-    .hide & {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    height: 18px !important;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 18px !important;
+    line-height: 18px !important;
+    img {
+      vertical-align: baseline;
+    }
+    div {
+      float: left;
+      height: 18px !important;
+    }
+    &:hover {
+      .hoverc {
+        display: inline-block;
+      }
+    }
+    .hoverc {
+      display: none;
+    }
+    .hidebar & {
       border-radius: 25px 0 0 25px;
       padding-left: 2px;
     }
     color: #09c0e8;
     a {
       color: #09c0e8;
+    }
+    i {
+      line-height: 18px;
     }
   }
   .bitome {
@@ -102,6 +127,6 @@
   }
   .btm-icon{
     width: 16px;
+    display: inline-block;
   }
-
 </style>

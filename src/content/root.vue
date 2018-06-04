@@ -1,8 +1,8 @@
 <template>
-  <div class="top-bar" :class="[{'active': marquee, hide: hide}]" v-if="marquee">
+  <div class="top-bar" :class="[{'active': settings.marquee, 'hidebar': hide}]" v-if="settings.marquee">
     <Marquee
       :cryptos="joinCryptos"
-      :useUSD="useUSD"
+      :useUSD="settings.useUSD"
       :useRedUp="settings.useRedUp"
       :currencyDisplay="currencyDisplay"
       :currencyLowerCase="currencyLowerCase"
@@ -13,6 +13,8 @@
 </template>
 <script>
 import _isEmpty from 'lodash/isEmpty'
+import _forEach from 'lodash/forEach'
+import _intersectionBy from 'lodash/intersectionBy'
 
 import API from '../api'
 import CONFIG from '../utils/config'
@@ -26,41 +28,40 @@ export default {
     cryptos: [],
     userCryptos: [],
     allCryptos: [],
-    useUSD: true,
-    useRedUp: false,
-    marquee: false,
     hide: false,
-    currentCurrency: {
-      value: 'USD'
+    settings: {
+      currentCurrency: {
+        value: 'USD'
+      },
+      marquee: true,
+      useRedUp: false,
+      useUSD: true
     },
     currencys: CONFIG.currencys
   }),
   computed: {
     joinCryptos () {
-      return {
-        ...this.userCryptos,
-        ...this.cryptos
-      }
-    },
-    settings () {
-      const setting = {
-        useRedUp: this.useRedUp,
-        useUSD: this.useUSD,
-        currentCurrency: this.currentCurrency,
-        marquee: this.marquee
-      }
-      return setting
+      const ary = []
+      this.userCryptos.forEach((element) => {
+        ary.push(element)
+      })
+      this.cryptos.forEach((element) => {
+        ary.push(element)
+      })
+      console.log(ary)
+      return ary
     },
     currencyLowerCase () {
-      return this.currentCurrency.value.toLowerCase()
+      return this.settings.currentCurrency.value.toLowerCase()
     },
     currencyDisplay () {
-      return this.currentCurrency.value
+      return this.settings.currentCurrency.value
     }
   },
   created () {
     const that = this
     this.getTop10()
+    this.getAllCrypto()
     setInterval(this.loadSettings, 5 * 1000)
     setInterval(this.getTop10, 60 * 1000)
     store.get(CRYPTO_DB_NAME)
@@ -68,6 +69,7 @@ export default {
         if (!_isEmpty(db[CRYPTO_DB_NAME])) {
           that.userCryptos = db[CRYPTO_DB_NAME]
         }
+        console.log(that.userCryptos)
       })
   },
   mounted () { },
@@ -75,17 +77,8 @@ export default {
     collapseContainer (collapse) {
       this.hide = collapse
     },
-    saveSettings () {
-      const setting = {
-        useRedUp: this.useRedUp,
-        useUSD: this.useUSD,
-        currentCurrency: this.currentCurrency,
-        marquee: this.marquee
-      }
-      store.set(SETTING_DB_NAME, setting)
-    },
     cancelMarquee () {
-      this.marquee = false
+      this.settings.marquee = false
       this.saveSettings()
     },
     loadSettings () {
@@ -95,21 +88,27 @@ export default {
           if (JSON.stringify(this.settings) === JSON.stringify(db[SETTING_DB_NAME])) {
             return
           }
-          if (!_isEmpty(db[SETTING_DB_NAME])) {
-            if ('useRedup' in db[SETTING_DB_NAME]) {
-              that.useRedUp = db[SETTING_DB_NAME].useRedUp
-            }
-            if ('currentCurrency' in db[SETTING_DB_NAME]) {
-              that.currentCurrency = db[SETTING_DB_NAME].currentCurrency
-            }
-            if ('useUSD' in db[SETTING_DB_NAME]) {
-              that.useUSD = db[SETTING_DB_NAME].useUSD
-            }
-            if ('marquee' in db[SETTING_DB_NAME]) {
-              that.marquee = db[SETTING_DB_NAME].marquee
-            }
+          const settings = db[SETTING_DB_NAME] || {}
+          return settings
+        }).then((savedSettings) => {
+          if (savedSettings) {
+            that.settings = savedSettings
           }
         })
+    },
+    getAllCrypto () {
+      const that = this
+      API.Crypto.getAllCryptoPrice().then(response => {
+        that.allCryptos = _forEach(response.data, (value, key) => {
+          value['value'] = value.symbol
+        })
+        console.log(that.userCryptos)
+        that.userCryptos = _intersectionBy(response.data, that.userCryptos, 'id')
+
+        console.log(that.userCryptos)
+      }).catch(e => {
+        this.error = e
+      })
     },
     getTop10 () {
       const that = this
@@ -138,7 +137,7 @@ export default {
       z-index: 999999999;
       border: none;
     }
-    &.hide {
+    &.hidebar {
       background: none;
     }
   }
