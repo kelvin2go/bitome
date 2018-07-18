@@ -10,14 +10,14 @@
         </a>
       </div>
     </marquee>
-    <div class="actions" >
+    <div class="bitoActions">
       <div>
         <img class="btm-icon" src="https://lh3.googleusercontent.com/ODk2BOfKLGabkhgkvOdDnhmMcZVk850BN8AmCjkpp1EC_MsIGDp7KiAMgf5P-xQU6JKbyZz6=w26-h26-e365"/>
       </div>
       <div class="hoverc">
-        <i class="el-icon-caret-right" v-if="!collapse" @click="handleToggle"></i>
-        <i class="el-icon-caret-left" v-if="collapse" @click="handleToggle"></i>
-        <a href="#" @click="cancelMarquee"><i class="el-icon-close"></i></a>
+        <span v-if="!collapse" @click="handleToggle"> > </span>
+        <span v-if="collapse" @click="handleToggle"> < </span>
+        <a href="#" @click="cancelMarquee">X</a>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   marquee {
     font-size: 16px !important;
     height: 18px !important;
@@ -84,7 +84,7 @@
       }
     }
   }
-  .actions{
+  .bitoActions{
     position: fixed !important;
     top: 0 !important;
     right: 0 !important;
@@ -92,6 +92,8 @@
     background: rgba(255, 255, 255, 0.9);
     font-size: 18px !important;
     line-height: 18px !important;
+    color: #09c0e8;
+
     img {
       vertical-align: baseline;
     }
@@ -106,18 +108,22 @@
     }
     .hoverc {
       display: none;
+      font-size: 16px;
+      text-align: center;
+      a {
+        color: #09c0e8;
+        text-decoration: none;
+      }
+      i {
+        line-height: 18px;
+      }
     }
     .hidebar & {
       border-radius: 25px 0 0 25px;
       padding-left: 2px;
     }
-    color: #09c0e8;
-    a {
-      color: #09c0e8;
-    }
-    i {
-      line-height: 18px;
-    }
+
+
   }
   .bitome {
     nav, header, .header,

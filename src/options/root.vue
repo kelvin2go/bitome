@@ -37,7 +37,7 @@
         </el-select>
       </el-form-item>
     </el-form>
-    Version: {{package.version}}
+    Version: {{package.version}} {{ env !== 'production' ? 'dev': '' }} by <a :href="mylink" target="_blank">Kelvin Ho</a>
   </div>
 </template>
 <script>
@@ -50,6 +50,8 @@
   export default {
     data: function () {
       return ({
+        timer: [],
+        mylink: 'https://kelvinho.js.org',
         settings: {
           currentCurrency: {
             value: 'USD'
@@ -60,7 +62,8 @@
         },
         inited: false,
         currencys: CONFIG.currencys,
-        package: PACKAGE
+        package: PACKAGE,
+        env: process.env.NODE_ENV
       })
     },
     computed: {
@@ -70,7 +73,7 @@
     },
     created () {
       this.loadSettings()
-      setInterval(this.loadSettings, 5 * 1000)
+      this.timer.loadSetting = setInterval(this.loadSettings, 5 * 1000)
       this.$gtm.trackView('options', '/options.html')
     },
     watch: {
