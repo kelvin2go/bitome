@@ -29,6 +29,7 @@ export default {
     userCryptos: [],
     allCryptos: [],
     hide: false,
+    timer: [],
     settings: {
       currentCurrency: {
         value: 'USD'
@@ -61,8 +62,8 @@ export default {
     const that = this
     this.getTop10()
     this.getAllCrypto()
-    this.$timer.loadSetting = setInterval(this.loadSettings, 5 * 1000)
-    this.$timer.getTop10 = setInterval(this.getTop10, 30 * 1000)
+    this.timer.loadSetting = setInterval(this.loadSettings, 5 * 1000)
+    this.timer.getTop10 = setInterval(this.getTop10, 30 * 1000)
     store.get(CRYPTO_DB_NAME)
       .then((db) => {
         if (!_isEmpty(db[CRYPTO_DB_NAME])) {
@@ -71,9 +72,7 @@ export default {
       })
   },
   beforeDestory () {
-    this.$timer.forEach((element) => {
-      clearInterval(element)
-    })
+    clearInterval(this.timer.getTop10)
   },
   mounted () { },
   methods: {
@@ -107,6 +106,11 @@ export default {
           }
         })
     },
+    saveSettings () {
+      if (this.inited) {
+        store.set(SETTING_DB_NAME, this.settings)
+      }
+    }
     getAllCrypto () {
       const that = this
       API.Crypto.getAllCryptoPrice().then(response => {

@@ -109,6 +109,7 @@
 
   export default {
     data: () => ({
+      timer: [],
       cryptos: [],
       userCryptos: [],
       allCryptos: [],
@@ -149,7 +150,7 @@
     },
     created () {
       const that = this
-      this.$timer.getTop10 = setInterval(this.getTop10, 60 * 1000)
+      this.timer.getTop10 = setInterval(this.getTop10, 60 * 1000)
       this.getTop10()
       this.getAllCrypto()
       store.get(CRYPTO_DB_NAME)
@@ -161,7 +162,7 @@
       this.$gtm.trackView('popup', '/popup.html')
     },
     beforeDestory () {
-      this.$timer.forEach((element) => {
+      this.timer.forEach((element) => {
         clearInterval(element)
       })
     },

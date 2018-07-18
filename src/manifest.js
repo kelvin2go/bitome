@@ -33,6 +33,7 @@ module.exports = {
   options_page: 'pages/options.html',
   content_scripts: [{
     js: [
+      'js/vendor.js',
       'js/content.js'
     ],
     run_at: 'document_idle',
