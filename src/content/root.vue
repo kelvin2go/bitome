@@ -110,7 +110,7 @@ export default {
       if (this.inited) {
         store.set(SETTING_DB_NAME, this.settings)
       }
-    }
+    },
     getAllCrypto () {
       const that = this
       API.Crypto.getAllCryptoPrice().then(response => {
