@@ -8,7 +8,7 @@ const {styleLoaders} = require('./tools')
 process.env.NODE_ENV = 'development'
 
 module.exports = merge(baseWebpack, {
-  // cheap-module-eval-source-map быстрее для разработки
+  // cheap-module-eval-source-map
   watch: true,
   module: {
     rules: styleLoaders({ sourceMap: false })

@@ -70,8 +70,13 @@
     },
     created () {
       this.loadSettings()
-      setInterval(this.loadSettings, 5 * 1000)
+      this.$timer.loadSetting = setInterval(this.loadSettings, 5 * 1000)
       this.$gtm.trackView('options', '/options.html')
+    },
+    beforeDestory () {
+      this.$timer.forEach((element) => {
+        clearInterval(element)
+      })
     },
     watch: {
       settings: {

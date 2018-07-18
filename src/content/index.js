@@ -17,7 +17,7 @@ fontawesome.library.add(faFrown)
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon)
 
 var bitome = document.createElement('div')
-bitome.setAttribute('id', 'root')
+bitome.setAttribute('id', 'rootBitome')
 
 document.body.appendChild(bitome)
 
@@ -29,6 +29,6 @@ Vue.use(VueGtm, {
 /* eslint-disable no-new */
 
 new Vue({
-  el: '#root',
+  el: '#rootBitome',
   render: h => h(root)
 })

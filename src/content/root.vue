@@ -61,14 +61,19 @@ export default {
     const that = this
     this.getTop10()
     this.getAllCrypto()
-    setInterval(this.loadSettings, 5 * 1000)
-    setInterval(this.getTop10, 30 * 1000)
+    this.$timer.loadSetting = setInterval(this.loadSettings, 5 * 1000)
+    this.$timer.getTop10 = setInterval(this.getTop10, 30 * 1000)
     store.get(CRYPTO_DB_NAME)
       .then((db) => {
         if (!_isEmpty(db[CRYPTO_DB_NAME])) {
           that.userCryptos = db[CRYPTO_DB_NAME]
         }
       })
+  },
+  beforeDestory () {
+    this.$timer.forEach((element) => {
+      clearInterval(element)
+    })
   },
   mounted () { },
   methods: {

@@ -149,7 +149,7 @@
     },
     created () {
       const that = this
-      setInterval(this.getTop10, 60 * 1000)
+      this.$timer.getTop10 = setInterval(this.getTop10, 60 * 1000)
       this.getTop10()
       this.getAllCrypto()
       store.get(CRYPTO_DB_NAME)
@@ -159,6 +159,11 @@
           }
         })
       this.$gtm.trackView('popup', '/popup.html')
+    },
+    beforeDestory () {
+      this.$timer.forEach((element) => {
+        clearInterval(element)
+      })
     },
     methods: {
       changeSettings (newSettings) {
